@@ -1,23 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-interface MyTokenERC20 {
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-    function transfer(
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
+// interface MyTokenERC20 {
+//     function transferFrom(
+//         address sender,
+//         address recipient,
+//         uint256 amount
+//     ) external returns (bool);
 
-    function balanceOf(address account) external view returns (uint256);
-}
+//     function transfer(
+//         address recipient,
+//         uint256 amount
+//     ) external returns (bool);
+
+//     function balanceOf(address account) external view returns (uint256);
+// }
 
 contract TokenBank {
-    MyTokenERC20 public token;
+    IERC20 public token;
 
     struct Deposit {
         uint256 money;
@@ -29,7 +31,7 @@ contract TokenBank {
     uint256 private timeDelay = 20 seconds;
 
     constructor(address _tokenAddress) {
-        token = MyTokenERC20(_tokenAddress);
+        token = IERC20(_tokenAddress);
     }
 
     function deposit(uint256 amount) external {
